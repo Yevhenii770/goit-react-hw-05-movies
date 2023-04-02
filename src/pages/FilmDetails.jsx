@@ -38,7 +38,7 @@ const FilmDetails = () => {
     if (error) {
       setStatus('rejected');
     }
-  }, [id]);
+  }, [id, error]);
 
   const getGenres = arrGenres => {
     if (arrGenres) {
@@ -48,7 +48,7 @@ const FilmDetails = () => {
 
   const getYear = releaseDate => {
     const date = new Date(releaseDate);
-    if (date == 'Invalid Date') {
+    if (date === 'Invalid Date') {
       return 'Sorry, we dont have any date for you :(';
     }
     if (date) {
