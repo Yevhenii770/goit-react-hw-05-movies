@@ -1,33 +1,43 @@
 import { useState } from 'react';
 import { fetchByName } from '../components/Api/Api';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/SearchForm/SearchForm';
 import Spinner from 'components/Loader/Loader';
 
 const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [data, setData] = useState([]);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const nameSearcQuery = searchParams.get('search') ?? '';
+
   const handleInputChange = e => {
-    setSearchQuery(e.currentTarget.value);
+    const name = e.target.value;
+
+    if (name === '') {
+      return setSearchParams({});
+    }
+    setSearchParams({ search: name });
+    // const nextParams = name !== '' ? { searchValue: name } : {};
+    // setSearchParams(nextParams);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (searchQuery.trim() === '') {
+    if (nameSearcQuery.trim() === '') {
       alert('Enter data in the search field!');
       return;
     }
 
-    fetchByName(searchQuery)
+    fetchByName(nameSearcQuery)
       .then(({ results }) => {
         setData([...results]);
       })
       .catch(error => setError(error));
     if (error) {
+      setError(error);
       setStatus('rejected');
     }
     setStatus('resolved');
@@ -38,7 +48,7 @@ const Movies = () => {
       <SearchBar
         onSubmit={handleSubmit}
         handleInputChange={handleInputChange}
-        searchQuery={searchQuery}
+        value={nameSearcQuery}
       />
     );
   }
@@ -48,7 +58,7 @@ const Movies = () => {
         <SearchBar
           onSubmit={handleSubmit}
           handleInputChange={handleInputChange}
-          searchQuery={searchQuery}
+          value={nameSearcQuery}
         />
         <Spinner />
       </>
@@ -60,7 +70,7 @@ const Movies = () => {
         <SearchBar
           onSubmit={handleSubmit}
           handleInputChange={handleInputChange}
-          searchQuery={searchQuery}
+          value={nameSearcQuery}
         />
         <ul>
           {data.map(({ id, title, original_name }) => {
@@ -75,6 +85,9 @@ const Movies = () => {
         </ul>
       </>
     );
+  }
+  if (status === 'rejected') {
+    return <h2>{error}</h2>;
   }
 };
 export default Movies;

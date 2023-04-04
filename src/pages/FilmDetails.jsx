@@ -69,7 +69,7 @@ const FilmDetails = () => {
     return (
       <>
         <div>
-          <Link to={`/`}>Go Back</Link>
+          <Link to={`/movies`}>Go Back</Link>
         </div>
         <div>
           {data.original_title ? (

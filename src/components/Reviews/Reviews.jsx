@@ -7,8 +7,6 @@ const Reviews = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
 
-  console.log('ddddd', data);
-
   useEffect(() => {
     setLoading(true);
     fetchReviews(id)

@@ -1,4 +1,4 @@
-function SearchBar({ onSubmit, handleInputChange, searchQuery }) {
+function SearchBar({ onSubmit, handleInputChange, value }) {
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -7,7 +7,7 @@ function SearchBar({ onSubmit, handleInputChange, searchQuery }) {
         autoFocus
         placeholder="Search films"
         onChange={handleInputChange}
-        value={searchQuery}
+        value={value}
       />
       <button type="submit">Search</button>
     </form>
