@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchById } from '../components/Api/Api';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,7 @@ const FilmDetails = () => {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const location = useLocation();
-
+  const baclLink = useRef(location.state?.from ?? '/home');
   useEffect(() => {
     setStatus('pending');
     fetchById(id)
@@ -70,7 +70,7 @@ const FilmDetails = () => {
     return (
       <>
         <div>
-          <Link to={location.state?.from ?? '/home'}>Go Back</Link>
+          <Link to={baclLink.current}>Go Back</Link>
         </div>
         <div>
           {data.original_title ? (
