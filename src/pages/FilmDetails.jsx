@@ -11,7 +11,7 @@ const FilmDetails = () => {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
   const location = useLocation();
-  console.log(location);
+
   useEffect(() => {
     setStatus('pending');
     fetchById(id)
@@ -70,7 +70,7 @@ const FilmDetails = () => {
     return (
       <>
         <div>
-          <Link to={location.state.from}>Go Back</Link>
+          <Link to={location.state?.from ?? '/home'}>Go Back</Link>
         </div>
         <div>
           {data.original_title ? (
