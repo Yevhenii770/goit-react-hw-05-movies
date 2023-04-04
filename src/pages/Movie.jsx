@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { fetchByName } from '../components/Api/Api';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/SearchForm/SearchForm';
 import Spinner from 'components/Loader/Loader';
 
@@ -10,6 +10,7 @@ const Movies = () => {
   const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const nameSearcQuery = searchParams.get('search') ?? '';
 
   const handleInputChange = e => {
@@ -76,7 +77,7 @@ const Movies = () => {
           {data.map(({ id, title, original_name }) => {
             return (
               <li key={id}>
-                <Link to={`/movies/${id}`}>
+                <Link to={`/movies/${id}`} state={{ from: location }}>
                   {title ? title : original_name}
                 </Link>
               </li>

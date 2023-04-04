@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchById } from '../components/Api/Api';
 import { Link } from 'react-router-dom';
 import noMovieImg from '../img/no-poster-available.jpg';
@@ -10,7 +10,8 @@ const FilmDetails = () => {
   const [data, setData] = useState({});
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState(null);
-
+  const location = useLocation();
+  console.log(location);
   useEffect(() => {
     setStatus('pending');
     fetchById(id)
@@ -69,7 +70,7 @@ const FilmDetails = () => {
     return (
       <>
         <div>
-          <Link to={`/movies`}>Go Back</Link>
+          <Link to={location.state.from}>Go Back</Link>
         </div>
         <div>
           {data.original_title ? (
