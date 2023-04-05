@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import { Container, Header, Link } from 'components/App.styled';
 import { Outlet } from 'react-router-dom';
+import Spinner from 'components/Loader/Loader';
 export const Layout = () => {
   return (
     <Container>
@@ -9,7 +11,9 @@ export const Layout = () => {
           <Link to="/movies">Movies</Link>
         </nav>
       </Header>
-      <Outlet />
+      <Suspense fallback={<Spinner />}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 };

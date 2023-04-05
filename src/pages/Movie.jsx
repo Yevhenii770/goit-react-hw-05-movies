@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { fetchByName } from '../components/Api/Api';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import SearchBar from '../components/SearchForm/SearchForm';
-import Spinner from 'components/Loader/Loader';
 
 const Movies = () => {
   const [data, setData] = useState([]);
@@ -61,7 +60,6 @@ const Movies = () => {
           handleInputChange={handleInputChange}
           value={nameSearcQuery}
         />
-        <Spinner />
       </>
     );
   }
